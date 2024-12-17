@@ -35,3 +35,22 @@ make test
 ```bash
 make coverage
 ```
+
+## How to migrate database
+Prerequisites:
+- Ensure you have the correct .env file
+- Ensure you have the correct database credentials
+- Ensure you have the correct database is ready to be migrated
+- Ensure you have already created the database in the database server
+- Install the migration tool: [golang-migrate](https://github.com/golang-migrate/migrate), or by running `make install-dependencies`
+
+```bash
+make db-migrate
+# this will run all the up.sql files in the internal/db/migrations/ directory
+```
+
+## How to rollback database
+```bash
+make db-rollback
+# this will rollback the last migration
+```

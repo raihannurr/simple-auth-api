@@ -1,4 +1,3 @@
-
 GO_PACKAGES ?= $(shell go list ./... | grep -v 'mock' | grep -v 'cmd')
 
 test:
@@ -16,3 +15,15 @@ build:
 
 start:build
 	@bin/rest-api
+
+install-dependencies:
+	go get -u ./...
+	go install -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate@v4
+
+db-migrate:
+	@. ./.env && \
+	migrate -path internal/db/migrations/ -database "$$DB_ADAPTER://$$DB_USER:$$DB_PASSWORD@tcp($$DB_HOST:$$DB_PORT)/$$DB_NAME" up
+
+db-rollback:
+	@. ./.env && \
+	migrate -path internal/db/migrations/ -database "$$DB_ADAPTER://$$DB_USER:$$DB_PASSWORD@tcp($$DB_HOST:$$DB_PORT)/$$DB_NAME" down 1
