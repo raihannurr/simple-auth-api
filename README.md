@@ -11,6 +11,7 @@
 ## Prerequisites
 - [Go](https://golang.org/dl/) version 1.23.4 or higher
 - [Make](https://www.gnu.org/software/make/)
+- [MySQL](https://www.mysql.com/) 8.0 or higher, running server (optional, you can also run this service by using `DB_ADAPTER=memory` to run simple in-memory database)
 
 ## How to run
 Prerequisites:

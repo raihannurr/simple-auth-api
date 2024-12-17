@@ -12,7 +12,7 @@ import (
 )
 
 func NewRouter(cfg config.AppConfig) http.Handler {
-	repo := repository.NewSimpleStructRepository()
+	repo := repository.InitializeRepository(cfg)
 	healthHandler := handler.NewHealthHandler(cfg)
 	csrfHandler := handler.NewCSRFHandler(cfg)
 	authHandler := handler.NewAuthHandler(cfg, repo)

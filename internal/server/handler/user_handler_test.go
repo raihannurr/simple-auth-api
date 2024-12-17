@@ -39,7 +39,7 @@ func TestUserHandler_GetProfile(t *testing.T) {
 					nil,
 				)
 			},
-			expectedBody: `{"id":123,"username":"user1","email":"user1@example.com","verified":false,"description":""}`,
+			expectedBody: `{"id":123,"username":"user1","email":"user1@example.com","verified":false,"description":"","created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z"}`,
 		},
 		{
 			title:        "Failed user not found",
@@ -106,7 +106,7 @@ func TestUserHandler_UpdateProfile(t *testing.T) {
 					nil,
 				)
 			},
-			expectedBody: `{"id":123,"username":"user1","email":"user1@example.com","verified":false,"description":"new description"}`,
+			expectedBody: `{"id":123,"username":"user1","email":"user1@example.com","verified":false,"description":"new description","created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z"}`,
 		},
 		{
 			title:        "Failed user not found",

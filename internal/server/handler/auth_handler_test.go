@@ -120,7 +120,7 @@ func TestAuthHandler_Register(t *testing.T) {
 					nil,
 				)
 			},
-			expectedBody: `{"id":123,"username":"user1","email":"user1@example.com","description":"","verified":false}`,
+			expectedBody: `{"id":123,"username":"user1","email":"user1@example.com","description":"","verified":false,"created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z"}`,
 		},
 		{
 			title:               "Failed empty request body",

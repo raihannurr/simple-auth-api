@@ -17,5 +17,5 @@ func TestUser(t *testing.T) {
 
 	json, err := json.Marshal(user)
 	assert.NoError(t, err)
-	assert.JSONEq(t, `{"id":0,"username":"test","email":"test@example.com","verified":false,"description":""}`, string(json))
+	assert.JSONEq(t, `{"id":0,"username":"test","email":"test@example.com","verified":false,"description":"","created_at":"0001-01-01T00:00:00Z","updated_at":"0001-01-01T00:00:00Z"}`, string(json))
 }
