@@ -1,4 +1,5 @@
 GO_PACKAGES ?= $(shell go list ./... | grep -v 'mock' | grep -v 'cmd')
+export RELEASE_VERSION    ?= $(shell git show -q --format=%h)
 
 test:
 	@go test -v ${GO_PACKAGES}
@@ -27,3 +28,6 @@ db-migrate:
 db-rollback:
 	@. ./.env && \
 	migrate -path internal/db/migrations/ -database "$$DB_ADAPTER://$$DB_USER:$$DB_PASSWORD@tcp($$DB_HOST:$$DB_PORT)/$$DB_NAME" down 1
+
+docker-build:
+	docker build -t github.com/raihannurr/simple-auth-api:$(RELEASE_VERSION) -f ./deployments/rest-api/Dockerfile .
