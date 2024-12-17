@@ -1,0 +1,43 @@
+services:
+  simple-auth-api:
+    image: github.com/raihannurr/simple-auth-api:${RELEASE_VERSION}
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      APP_PORT: ${APP_PORT}
+      JWT_PRIVATE_KEY: ${JWT_PRIVATE_KEY}
+      JWT_LIFETIME_IN_MINUTES: ${JWT_LIFETIME_IN_MINUTES}
+      JWT_ISSUER: ${JWT_ISSUER}
+      CSRF_TOKEN_LENGTH: ${CSRF_TOKEN_LENGTH}
+      CSRF_TOKEN_EXP_IN_MINUTES: ${CSRF_TOKEN_EXP_IN_MINUTES}
+      SESSION_SECRET_KEY: ${SESSION_SECRET_KEY}
+      DB_ADAPTER: ${DB_ADAPTER}
+      DB_HOST: mysql
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    restart: always
+    depends_on:
+      - mysql
+    networks:
+      - simple-auth-api
+
+  mysql:
+    image: docker.io/mysql:8.0.30
+    ports:
+      - 3${DB_PORT}:3306
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD} # TODO: change to non-root user
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - simple-auth-api
+
+volumes:
+  mysql-data:
+    driver: local
+
+networks:
+  simple-auth-api:

@@ -31,3 +31,9 @@ db-rollback:
 
 docker-build:
 	docker build -t github.com/raihannurr/simple-auth-api:$(RELEASE_VERSION) -f ./deployments/rest-api/Dockerfile .
+
+docker-compose-up:
+	RELEASE_VERSION=$(RELEASE_VERSION) docker compose -f docker-compose.yml up
+
+docker-compose-down:
+	docker-compose down

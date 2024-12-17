@@ -62,6 +62,7 @@
 ├── go.mod
 ├── go.sum
 ├── Makefile
+├── docker-compose.yml
 └── README.md
 ```
 
@@ -76,6 +77,19 @@ cp .env.sample .env
 #ensure running this command on the same directory as the Makefile and the .env file
 make start
 ```
+
+Alternatively, you can run the server using docker compose
+```bash
+# start the server, but please ensure that you have build the docker image first, especially after every commit
+make docker-build
+make docker-compose-up
+
+# additionally, run the migration command and route it to the 
+
+# stop the server, make sure to remove the containers when you want to rebuild the application
+make docker-compose-down
+```
+
 
 ## How to test
 ```bash
