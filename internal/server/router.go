@@ -12,8 +12,7 @@ import (
 )
 
 func NewRouter(cfg config.AppConfig) http.Handler {
-	repo := repository.NewSimpleStructRepository(cfg)
-	// cache := repository.NewSimpleCacheRepository()
+	repo := repository.NewSimpleStructRepository()
 	healthHandler := handler.NewHealthHandler(cfg)
 	csrfHandler := handler.NewCSRFHandler(cfg)
 	authHandler := handler.NewAuthHandler(cfg, repo)
