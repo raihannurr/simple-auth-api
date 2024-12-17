@@ -40,7 +40,7 @@ type DatabaseConfig struct {
 
 func LoadEnv(filename string) AppConfig {
 	log.Println("Loading .env file...")
-	godotenv.Load(filename)
+	_ = godotenv.Load(filename)
 
 	lifetime, err := strconv.Atoi(os.Getenv("JWT_LIFETIME_IN_MINUTES"))
 	if err != nil {

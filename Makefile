@@ -11,15 +11,26 @@ coverage:
 run:
 	go run cmd/rest-api/server.go
 
-build:
+build: lint
 	go build -o bin/rest-api cmd/rest-api/server.go
 
 start:build
 	@bin/rest-api
 
-install-dependencies:
+install-linter:
+	@if ! [ -x "$$(command -v golangci-lint)" ]; then \
+		echo "golangci-lint not found, installing..."; \
+		curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.62.2; \
+	else \
+		echo "golangci-lint is already installed."; \
+	fi
+
+install-dependencies:install-linter
 	go get -u ./...
 	go install -tags 'mysql' github.com/golang-migrate/migrate/v4/cmd/migrate@v4
+
+lint:
+	@golangci-lint run
 
 db-migrate:
 	@. ./.env && \

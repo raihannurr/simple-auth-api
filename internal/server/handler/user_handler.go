@@ -21,13 +21,13 @@ func (h UserHandler) GetProfile(w http.ResponseWriter, r *http.Request, _ httpro
 	user, err := h.Repo.GetUserByID(userContext)
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte(err.Error()))
+		_, _ = w.Write([]byte(err.Error()))
 		return
 	}
 
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(user)
+	_ = json.NewEncoder(w).Encode(user)
 }
 
 func (h UserHandler) UpdateProfile(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -36,7 +36,7 @@ func (h UserHandler) UpdateProfile(w http.ResponseWriter, r *http.Request, _ htt
 	user, err := h.Repo.GetUserByID(userContext)
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte(err.Error()))
+		_, _ = w.Write([]byte(err.Error()))
 		return
 	}
 
@@ -44,13 +44,13 @@ func (h UserHandler) UpdateProfile(w http.ResponseWriter, r *http.Request, _ htt
 	user, err = h.Repo.UpdateUser(userContext, user)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(err.Error()))
+		_, _ = w.Write([]byte(err.Error()))
 		return
 	}
 
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusAccepted)
-	json.NewEncoder(w).Encode(user)
+	_ = json.NewEncoder(w).Encode(user)
 }
 
 func NewUserHandler(cfg config.AppConfig, repo repository.IRepository) UserHandler {

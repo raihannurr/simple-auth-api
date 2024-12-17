@@ -17,7 +17,7 @@ func ValidateCSRF(next httprouter.Handle) httprouter.Handle {
 
 		if session.CSRFToken.IsExpired() || session.CSRFToken.Token != csrfToken {
 			w.WriteHeader(http.StatusUnauthorized)
-			w.Write([]byte("Invalid CSRF token"))
+			_, _ = w.Write([]byte("Invalid CSRF token"))
 			return
 		}
 

@@ -25,20 +25,20 @@ func (h AuthHandler) Login(w http.ResponseWriter, r *http.Request, _ httprouter.
 
 	if username == "" || password == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Username and password are required"))
+		_, _ = w.Write([]byte("Username and password are required"))
 		return
 	}
 
 	user, err := h.Repo.GetUserByUsername(username)
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
-		w.Write([]byte(errors.ErrInvalidLoginCredentials.Error()))
+		_, _ = w.Write([]byte(errors.ErrInvalidLoginCredentials.Error()))
 		return
 	}
 
 	if !utils.VerifyPassword(password, user.Password) {
 		w.WriteHeader(http.StatusUnauthorized)
-		w.Write([]byte(errors.ErrInvalidLoginCredentials.Error()))
+		_, _ = w.Write([]byte(errors.ErrInvalidLoginCredentials.Error()))
 		return
 	}
 
@@ -46,7 +46,7 @@ func (h AuthHandler) Login(w http.ResponseWriter, r *http.Request, _ httprouter.
 
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{"token": token})
+	_ = json.NewEncoder(w).Encode(map[string]string{"token": token})
 }
 
 func (h AuthHandler) Register(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -57,26 +57,26 @@ func (h AuthHandler) Register(w http.ResponseWriter, r *http.Request, _ httprout
 
 	if username == "" || email == "" || password == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte("Username, email, and password are required"))
+		_, _ = w.Write([]byte("Username, email, and password are required"))
 		return
 	}
 
 	if !utils.IsStrongPassword(password) {
 		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(errors.ErrInvalidPassword.Error()))
+		_, _ = w.Write([]byte(errors.ErrInvalidPassword.Error()))
 		return
 	}
 
 	user, err := h.Repo.CreateUser(username, email, password)
 	if err != nil {
 		w.WriteHeader(http.StatusUnprocessableEntity)
-		w.Write([]byte(err.Error()))
+		_, _ = w.Write([]byte(err.Error()))
 		return
 	}
 
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(user)
+	_ = json.NewEncoder(w).Encode(user)
 }
 
 func NewAuthHandler(cfg config.AppConfig, repo repository.IRepository) AuthHandler {

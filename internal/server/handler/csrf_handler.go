@@ -24,7 +24,7 @@ func (h CSRFHandler) GetCSRFToken(w http.ResponseWriter, r *http.Request, _ http
 
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(fmt.Sprintf(`{"csrf_token": "%s"}`, csrfToken.Token)))
+	_, _ = w.Write([]byte(fmt.Sprintf(`{"csrf_token": "%s"}`, csrfToken.Token)))
 }
 
 func NewCSRFHandler(config config.AppConfig) CSRFHandler {

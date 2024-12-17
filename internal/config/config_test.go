@@ -13,11 +13,11 @@ import (
 func TestConfig_LoadEnv(t *testing.T) {
 	file, err := os.Create(".env.dummy")
 	assert.Nil(t, err)
-	file.WriteString("JWT_PRIVATE_KEY=secret-token\n")
-	file.WriteString("JWT_LIFETIME_IN_MINUTES=\n")
-	file.WriteString("JWT_ISSUER=simple-auth-api\n")
-	file.WriteString("SESSION_SECRET_KEY=secret-session\n")
-	file.WriteString("APP_PORT=9999\n")
+	_, _ = file.WriteString("JWT_PRIVATE_KEY=secret-token\n")
+	_, _ = file.WriteString("JWT_LIFETIME_IN_MINUTES=\n")
+	_, _ = file.WriteString("JWT_ISSUER=simple-auth-api\n")
+	_, _ = file.WriteString("SESSION_SECRET_KEY=secret-session\n")
+	_, _ = file.WriteString("APP_PORT=9999\n")
 	file.Close()
 	defer os.Remove(".env.dummy")
 

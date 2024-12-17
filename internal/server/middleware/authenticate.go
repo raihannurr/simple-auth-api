@@ -17,7 +17,7 @@ func Authenticate(cfg config.JWTConfig, next httprouter.Handle) httprouter.Handl
 		tokenVal, err := utils.VerifyToken(token, cfg)
 		if err != nil {
 			w.WriteHeader(http.StatusUnauthorized)
-			w.Write([]byte("Unauthorized"))
+			_, _ = w.Write([]byte("Unauthorized"))
 			return
 		}
 

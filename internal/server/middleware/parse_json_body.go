@@ -14,7 +14,7 @@ func ParseJsonBody(next httprouter.Handle) httprouter.Handle {
 		err := json.NewDecoder(r.Body).Decode(&payload)
 		if err != nil {
 			w.WriteHeader(http.StatusBadRequest)
-			w.Write([]byte("Bad Request"))
+			_, _ = w.Write([]byte("Bad Request"))
 			return
 		}
 
